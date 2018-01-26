@@ -49,7 +49,7 @@ the game play to go on. It has all the game objects and displays the current sta
      B.  The baracades.  There are some four barriers that block bullets. Each
          time a bullet hits the barrier, it chips away at it. removing a piece
 	 and making the barrier smaller. The barrier consists of say a grid of
-	 say 10 contiguous blocks, and if a bullet hits a block, it is destroyed. 
+	 say contiguous blocks, and if a bullet hits a block, it is destroyed. 
 	 The baracades are objects that do not move and do not lauch bullets.
      
      C.  The player.  This is a player that is located an the baseline and can
@@ -69,7 +69,7 @@ the game play to go on. It has all the game objects and displays the current sta
 	  object.  These will be spheres.
 
      F.  Game Play Manager.  This controls the update rate, and keeps track of
-     	 the Score. 
+     	 the Score. Also keeps count of the number of aliens left.
      
      G.  Score Token.  This is a text object that displays the current score.
      H.  The main Camera.  This is used to render the game and display it to
@@ -89,7 +89,16 @@ the game play to go on. It has all the game objects and displays the current sta
      right or left. The space bar or the left click will trigger a bullet
      firing onto the aliens.
 
- 3. Connectivity Graph
+3. Win Screen
+    Text across the window showing that the player won.
+
+4. Loss Screen
+     Text across the screen showing that the player lost.
+    
+  
+
+3. Connectivity Graph
+---------------------
 
  The Start and Game play scene are connected through the start button (on the
  scene graph) and the result of game play (win/loss) in the game play graph.
@@ -97,7 +106,216 @@ the game play to go on. It has all the game objects and displays the current sta
 
  ![](Assets/ConnectivityGraph.png)
 
-Exit
+4. Object Descriptions
+----------------------
+
+  Assets
+  1.  Player: 
+       1 Geometry: Cube
+       2 Texture :Arrow
+       3 No sound
+       4 No animation
+       5 Lambert Standard
+  
+  2.  Aliens:
+       1  Ovals
+       2  Color: Yellow, purple Red
+       3  No sound
+       4  No animation
+       5  Lambert Standard
+  
+  3.  Barrier
+       
+       1  array of adjacent cubes
+       2  Color : Green
+       3  No sound
+       4  No animation
+       5  Lambert Standard
+
+  4.  Bullets
+       
+       1  Spheres
+       2  Color: Yellow
+       3  Sound: Brief pulse when emitted
+       4  Shader: Lambertian
+
+  Standard Components
+  
+  	Transforms:  All Assets have transforms that place the objects in the scene. No object has a rotation. 
+    			The Player and the Aliens are reduced a little in side and the
+			barrier is half as big.  The bullets are alse reduced so they
+			look like bullets.
+
+  	Rigid Bodies:  The Player, the Aliens, the bullets, the Barrier are rigid Bodies.
+
+ 	Colliders   :   Barrier and the Players all have a cube as their
+               boundary.  The aliens have an oval and the bullets have a circle.
+	
+	StandardMethods:  Start (initialize and update (loop)).
+  
+  Custom Components:
+
+        preFabs:  Aliens and players both have the ability to launch bullets.  To launch a bullet,
+		 the object must instantiate the bullet and give it the correct
+		 initial velocity, and the correct physics.  Gravity will not
+		 be turned on for the bullets, but the bullets initial velocity
+		 will be set by a constant.
+
+       Player  : 
+                 Data Members:
+		       timeLastShot:  used to prevent too many bullets from
+		       		being fired.
+		 Methods:
+		      FireShot.  launch a bullet and reset timeLastShot(). Also
+		                 Abort if current time is too near
+				 timeLastShot.
+
+		      BlowUp     destroy oneself if hit with a collision.
+
+		 Triggers: Fireshot:  left click or space bar.
+		           BlowUp:   Bullet collides with object.
+	
+       Alien  :
+       		 Data Members:
+		 	bool:  FrontLine: True if this alien is on the front
+					line. Aliens on the front line fire
+					shots.
+
+			       LeftMost:  true if this alien is the most left
+			                so that in knows when to turn around.
+			       RightMost:  true if this alien is the most
+			       BackRow  :  Most protected alien.  This alien
+			       		also controls when to turn.
+
+		       int:    leftAlien:   the alien number to the left. Only
+		   			true if this is a back row.
+			       rightAlien:  Alien number to the right. Only
+			                true if this is a back row.
+			       front Alien: Alien in front of object
+			       Back Alien:  Alien in back of object
+
+		 Methods  :  
+		        FireShot:  if front row fire shot with an exponential
+			distribution with fixed parameter lambda.
+
+			Blow Up:  Update the Alien to the right and left so
+			that they are linked together.  Decrement the total
+			Alien count.  Launch an explosion.
+
+			MoveLeft:  Leftmost alien moves left based on a trigger 
+			Move Left and Trigger aliens to the left and 
+			below to move left.
+
+		        MoveRight:  Move Right and Trigger Aliens to the right
+			and down to move right.
+
+			MoveDown:  Trigger aliens to the right, left and down
+			to move down.
+
+		  Triggers: 
+		          FireShot: Random
+
+			  Blow Up:  On Collision with Bullet.
+
+			  RightEdge: if rightMost alien and on the edge of the
+			  screen moveLeft.
+
+			  LeftEdge: if leftMostAlien and on the leftEdge of the
+			  screen MoveRight
+
+
+	Bullet:
+	    Triggers:
+	       OnCollision: Die
+
+	Barrier:
+
+	        Triggers:
+		      BlowUp: on Collision with Bullet.
+
+        GamePlay Manager:
+	      
+	        Data Members:
+		   Score:  The current Score:
+		   AliensLeft: Number of Aliens Left.
+		   PlayersLeft: Number of Players Left
+	   
+                Methods:
+
+	        	init Aliens: Create a block of Aliens based on the current
+			screen width and alien size.
+
+			init Baracade: Create three Baracades Based on the size of the
+			player, size of the Alien brigade and the space in between.
+
+			Init Player:  Make three players.
+			EndGame: Check if the game is over
+		Triggers:
+
+	                onCollision: if a collision with an Alien, decrement
+			the Number of Aliens.  If collision is with the player.
+			create new player and decrement the players left.
+
+5. InterObject Communication
+----------------------------
+
+  The objects communicate in very specific ways.  The primary way objects
+  communicate is through launching and recieving bullets and collisions.  The
+  players and aliens launch bullets but do not know the outcome of those
+  bullets. The global manager is invoked for each collision.
+
+
+  Player -Bullet:
+      Player instantiates bullets:
+      Player dies on collision with bullet:
+
+  Player-Manager:
+      if Player dies, decrement players left and run Endgame.
+
+  Barrier- Bullet:
+        On Collision section of Barrier gets destroyed
+
+  Alien -Bullet:
+        Aliens instantiates bullets
+	Alien dies on collision with Bullet
+
+  Alien- Manager:
+         if alien dies decrement the count of aliens and check
+	 if endgame.
+  Alien- Alien:
+          if Alien dies, update neigbors with next left, right,
+	  so right and left always work.
+
+  
+
+
+  
+		
+
+
+
+
+
+       
+
+
+
+
+
+
+                
+            
+	
+      
+
+
+	
+
+
+
+
+
+     
 
 
      	 
