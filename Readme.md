@@ -97,7 +97,7 @@ the game play to go on. It has all the game objects and displays the current sta
     
   
 
-3. Connectivity Graph
+Connectivity Graph
 ---------------------
 
  The Start and Game play scene are connected through the start button (on the
@@ -106,7 +106,7 @@ the game play to go on. It has all the game objects and displays the current sta
 
  ![](Assets/ConnectivityGraph.png)
 
-4. Object Descriptions
+Object Descriptions
 ----------------------
 
   Assets
@@ -256,7 +256,7 @@ the game play to go on. It has all the game objects and displays the current sta
 			the Number of Aliens.  If collision is with the player.
 			create new player and decrement the players left.
 
-5. InterObject Communication
+InterObject Communication
 ----------------------------
 
   The objects communicate in very specific ways.  The primary way objects
