@@ -22,6 +22,34 @@ public class Bullet : MonoBehaviour {
             GetComponent<Rigidbody>().AddRelativeForce(thrust);
          }
     // Update is called once per frame
+    
+    void OnCollisionEnter(Collision collision)
+    {
+        // the Collision contains a lot of info, but it’s the colliding
+        // object we’re most interested in. Collider collider = collision.collider;
+        Collider collider = collision.collider;
+        if (collider.CompareTag("Alien"))
+        {
+            Alien alien =
+            collider.gameObject.GetComponent<Alien>(); // let the other object handle its own death throes
+            alien.Die();
+            // Destroy the Bullet which collided with the Asteroid
+            Die();
+        }
+        else if (collider.CompareTag("Player"))
+        {
+            Player player = collider.gameObject.GetComponent<Player>();
+            player.Die();
+            // Destroy the bullet which collided with the Asteroid
+            Die();
+
+        }
+        else
+        { // if we collided with something else, print to console
+          // what the other thing was
+            Debug.Log("Collided with " + collider.tag);
+        }
+    }
     void Update()
     { //Physics engine handles movement, empty for now. }
         Vector3 screenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
