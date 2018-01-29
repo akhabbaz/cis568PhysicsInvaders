@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
             {
                 timeLastShot = currentTime;
                 Vector3 spawnPos = gameObject.transform.position;
-                spawnPos.y += 0.25f;
+                spawnPos.y += 0.75f;
                 // instantiate the Bullet
                 GameObject obj = Instantiate(bullet, spawnPos, Quaternion.identity) as GameObject;
                 // get the Bullet Script Component of the new Bullet instance
