@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
     public GameObject bullet;
     float timeLastShot;
     float minTimeDiff;
+    public GameObject deathExplosion;
+    public AudioClip deathKnell;
     // Use this for initialization
     void Start () {
         forceVector.x = 1.0f;
@@ -15,7 +17,8 @@ public class Player : MonoBehaviour {
         minTimeDiff = 0.5f;
     }
     void Update()
-    {
+    {// the Collision contains a lot of info, but it’s the colliding
+        // object we’re most interested in. Collider collider = collision.collider;
         if (Input.GetButtonDown("Fire1"))
         {
             Debug.Log("Fire! ");
@@ -52,8 +55,20 @@ public class Player : MonoBehaviour {
             }
 
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        // the Collision contains a lot of info, but it’s the colliding
+        // object we’re most interested in. Collider collider = collision.collider;
+        Die();
+    }
+    
     public void Die()
     {
+        // Destroy removes the gameObject from the scene and
+	// plays a nice explosion
+        AudioSource.PlayClipAtPoint(deathKnell, gameObject.transform.position);
+        Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(-90, Vector3.right));
+        // marks it for garbage collection
         Destroy(gameObject);
     }
 }

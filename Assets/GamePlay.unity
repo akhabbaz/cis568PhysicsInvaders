@@ -302,6 +302,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceVector: {x: 0, y: 0, z: 0}
   bullet: {fileID: 1741004020497304, guid: df309048b9700694d869d004999532cd, type: 2}
+  deathExplosion: {fileID: 0}
+  deathKnell: {fileID: 0}
+--- !u!1 &849540848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 849540849}
+  m_Layer: 0
+  m_Name: AlienManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &849540849
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 849540848}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2766559, y: 2.2141864, z: -0.0017478913}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1173581128
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +342,7 @@ GameObject:
   - component: {fileID: 1173581132}
   - component: {fileID: 1173581131}
   - component: {fileID: 1173581130}
+  - component: {fileID: 1173581134}
   - component: {fileID: 1173581129}
   - component: {fileID: 1173581133}
   m_Layer: 0
@@ -403,6 +434,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1173581134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1173581128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125e84138e0b59e4bba9097a148c6970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathExplosion: {fileID: 1692421174320418, guid: a2f74bab10131f746b6a0503439bc467,
+    type: 2}
+  deathKnell: {fileID: 8300000, guid: e3edda40320cae24cac67bbac7459f9c, type: 3}
 --- !u!1 &1192625715
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +563,10 @@ Prefab:
     - target: {fileID: 400000, guid: 0f699182f52e43441855c97c231b24f0, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0f699182f52e43441855c97c231b24f0, type: 3}
+      propertyPath: m_TagString
+      value: Alien
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0f699182f52e43441855c97c231b24f0, type: 3}
