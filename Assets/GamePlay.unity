@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 821400848}
   - component: {fileID: 821400851}
   - component: {fileID: 821400847}
+  - component: {fileID: 821400853}
   - component: {fileID: 821400852}
   m_Layer: 0
   m_Name: Player
@@ -210,8 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af3fad5222afdb44b971fe146799539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceVector: {x: 0, y: 0, z: 0}
-  bullet: {fileID: 1741004020497304, guid: 086d294eb237385488884d955600b90a, type: 2}
 --- !u!54 &821400852
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -227,6 +226,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 124
   m_CollisionDetection: 0
+--- !u!114 &821400853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 821400846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86fce5b9c4b88d34da980997656d0035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceVector: {x: 0, y: 0, z: 0}
+  bullet: {fileID: 1741004020497304, guid: df309048b9700694d869d004999532cd, type: 2}
 --- !u!1 &1192625715
 GameObject:
   m_ObjectHideFlags: 0

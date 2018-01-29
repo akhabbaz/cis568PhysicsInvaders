@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4392949201644896}
   - component: {fileID: 33849436226452454}
   - component: {fileID: 135966646815642244}
+  - component: {fileID: 114001584627382116}
   - component: {fileID: 23669702050981276}
   - component: {fileID: 114000845914783202}
   - component: {fileID: 54842697637862420}
@@ -58,7 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: de1ecdc9da77ef849962fc370d264f2a, type: 2}
+  - {fileID: 2100000, guid: 7e5a633728d50db48924009c02c6c8d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,6 +110,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85c550208e1770c4b8659a5965d4b09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: {x: 0, y: 0, z: 0}
+  heading: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114001584627382116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741004020497304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f167be05f37f33747911cc7b0c5b0e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   thrust: {x: 0, y: 0, z: 0}
