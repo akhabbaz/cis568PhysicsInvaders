@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Alien : MonoBehaviour {
+public class Alien : MonoBehaviour, IComparable<Alien> {
     // Use this for initialization
     public GameObject deathExplosion;
     public AudioClip deathKnell;
@@ -23,7 +24,13 @@ public class Alien : MonoBehaviour {
         // marks it for garbage collection
         Destroy(gameObject);
     }
-
+    public int CompareTo(Alien other)
+    {
+	    if (other == null) {
+		    return 1;
+	    }
+	    return 0;
+    }
     // Update is called once per frame
     void Update () {
 		

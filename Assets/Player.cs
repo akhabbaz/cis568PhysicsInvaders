@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
         forceVector.x = 1.0f;
         timeLastShot = 0.0f;
         minTimeDiff = 0.5f;
+        print(" This is a test");
     }
     void Update()
     {// the Collision contains a lot of info, but it’s the colliding
@@ -31,8 +32,7 @@ public class Player : MonoBehaviour {
                 timeLastShot = currentTime;
                 Vector3 spawnPos = gameObject.transform.position;
                 spawnPos.y += 0.75f;
-                // instantiate the Bullet
-                GameObject obj = Instantiate(bullet, spawnPos, Quaternion.identity) as GameObject;
+                GameObject obj = LaunchBullet(spawnPos);
                 // get the Bullet Script Component of the new Bullet instance
                 Bullet b = obj.GetComponent<Bullet>();
                 // set the direction the Bullet will travel in
@@ -41,7 +41,14 @@ public class Player : MonoBehaviour {
             }
         }
     }
-	// Update is called once per frame
+
+    private GameObject LaunchBullet(Vector3 spawnPos)
+    {
+        // instantiate the Bullet
+        return Instantiate(bullet, spawnPos, Quaternion.identity) as GameObject;
+    }
+
+    // Update is called once per frame
     void FixedUpdate()
     {
             // force thruster
