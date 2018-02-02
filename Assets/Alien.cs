@@ -7,14 +7,14 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
     // Use this for initialization
     public GameObject deathExplosion;
     public AudioClip deathKnell;
-    void Start () {
-		
+    void Start() {
+
     }
     void OnCollisionEnter(Collision collision)
     {
         // the Collision contains a lot of info, but it’s the colliding
         // object we’re most interested in. Collider collider = collision.collider;
-       Die(); 
+        Die();
     }
     public void Die()
     {
@@ -26,9 +26,16 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
     }
     public int CompareTo(Alien other)
     {
-	    if (other == null) {
-		    return 1;
-	    }
+        if (other == null) { 
+            return 0;
+        }
+        if (gameObject.transform.position.x<other.transform.position.x){
+           return -1;
+        }
+        else if (gameObject.transform.position.x > other.transform.position.x){
+            return 1;
+        }
+
 	    return 0;
     }
     // Update is called once per frame

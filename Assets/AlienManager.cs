@@ -4,34 +4,36 @@ using UnityEngine;
 
 public class AlienManager : MonoBehaviour {
 	float xStart = -1;
-	float xstep =  1f;
+	float xstep =  5f;
 	int number = 2;
-    public GameObject oneAlien;
-    List<GameObject> aliens;
+    public Alien prefabAlien;
+    List<Alien> aliens;
     // Use this for initialization
-    void Start () {
-		List<GameObject> aliens = new List<GameObject>();
+    AlienManager()
+        { }
+     void Start() { 
+		List<Alien> aliens = new List<Alien>();
 
 		for (float i = 0; i < number; ++i) {
             Vector3 test = new Vector3(xStart + i * xstep, 2.0f);
-            GameObject alien = Instantiate(oneAlien, test, Quaternion.identity) as GameObject;
-			aliens.Add(oneAlien);
+            Alien oneAlien =  Instantiate(prefabAlien, test, Quaternion.identity);
+            oneAlien.name = "  1";
+            aliens.Add(oneAlien);
 		}
 		aliens.Sort();
-		foreach(GameObject al in aliens)
-		{
-			print (al.name);
-		}
-        aliens.Clear();
-		
 	}
 	
+    void removeAlien(Alien deadAlien)
+    {
+        int index = aliens.BinarySearch(deadAlien);
+        aliens.RemoveAt(index);
+    }
 	// Update is called once per frame:
 	void Update () {
-        foreach (GameObject al in aliens)
+        foreach (Alien al in aliens)
         {
             print(al.name);
         }
-        aliens.Clear();
+     
     }
 }
