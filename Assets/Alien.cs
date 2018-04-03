@@ -10,7 +10,13 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
     public AudioClip deathKnell;
     void Start() {
 
-        alienManager = UnityEngine.Object.FindObjectOfType<AlienManager>();
+    }
+    public void UpdateManager(AlienManager manager)
+    {
+        if (alienManager == null && manager != null)
+        {
+            alienManager = manager;
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -24,9 +30,10 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
         AudioSource.PlayClipAtPoint(deathKnell, gameObject.transform.position);
         Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(0, Vector3.forward));
         // marks it for garbage collection
-        Alien thisA = gameObject.GetComponent<Alien>();
-        alienManager.RemoveAlien(thisA);
+        //Alien thisA = gameObject.GetComponent<Alien>();
+        
         Destroy(gameObject);
+        alienManager.RemoveAlien(this);
     }
     public int CompareTo(Alien other)
     {
