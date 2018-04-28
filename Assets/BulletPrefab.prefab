@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4392949201644896}
   - component: {fileID: 33849436226452454}
   - component: {fileID: 135966646815642244}
-  - component: {fileID: 114001584627382116}
   - component: {fileID: 23669702050981276}
   - component: {fileID: 114000845914783202}
   - component: {fileID: 54842697637862420}
+  - component: {fileID: 114751552608531310}
   m_Layer: 0
   m_Name: BulletPrefab
   m_TagString: Bullet
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: {x: 0, y: 0, z: 0}
   heading: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114001584627382116
+--- !u!114 &114751552608531310
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

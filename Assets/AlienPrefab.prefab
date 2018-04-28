@@ -476,5 +476,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathExplosion: {fileID: 1692421174320418, guid: a2f74bab10131f746b6a0503439bc467,
     type: 2}
-  alienManager: {fileID: 0}
   deathKnell: {fileID: 8300000, guid: e3edda40320cae24cac67bbac7459f9c, type: 3}

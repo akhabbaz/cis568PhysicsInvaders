@@ -5,13 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour {
    
     public Vector3 forceVector;
-    public GameObject bullet;
+    public Bullet  bullet;
     float timeLastShot;
     float minTimeDiff;
     public GameObject deathExplosion;
     public AudioClip deathKnell;
     // Use this for initialization
-    void Start () {
+    void Start() {
         forceVector.x = 1.0f;
         timeLastShot = 0.0f;
         minTimeDiff = 0.5f;
@@ -22,7 +22,6 @@ public class Player : MonoBehaviour {
         // object we’re most interested in. Collider collider = collision.collider;
         if (Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("Fire! ");
             /* we don’t want to spawn a Bullet inside our ship, so some
             Simple trigonometry is done here to spawn the bullet at the tip of where the ship is pointed.
             */
@@ -32,9 +31,9 @@ public class Player : MonoBehaviour {
                 timeLastShot = currentTime;
                 Vector3 spawnPos = gameObject.transform.position;
                 spawnPos.y += 0.75f;
-                GameObject obj = LaunchBullet(spawnPos);
+                Bullet b = LaunchBullet(spawnPos);
                 // get the Bullet Script Component of the new Bullet instance
-                Bullet b = obj.GetComponent<Bullet>();
+                //Bullet b = obj.GetComponent<Bullet>();
                 // set the direction the Bullet will travel in
                 Quaternion rot = Quaternion.Euler(new Vector3(0, 0, 0));
                 b.heading = rot;
@@ -42,10 +41,12 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private GameObject LaunchBullet(Vector3 spawnPos)
+    private Bullet LaunchBullet(Vector3 spawnPos)
     {
         // instantiate the Bullet
-        return Instantiate(bullet, spawnPos, Quaternion.identity) as GameObject;
+        Bullet b = Instantiate(bullet, spawnPos, Quaternion.identity);// as GameObject;
+                                                                      // Bullet bp = b.GetComponent<Bullet>();
+        return b;
     }
 
     // Update is called once per frame

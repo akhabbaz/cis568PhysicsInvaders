@@ -25,6 +25,18 @@ public class Bullet : MonoBehaviour {
     
     void OnCollisionEnter(Collision collision)
     {
+        Collider collider = collision.collider;
+        if (collider.CompareTag("Alien"))
+        {
+            Alien hitAlien =
+            collider.gameObject.GetComponent<Alien>(); // let the other object handle its own death throes
+            hitAlien.Die(); // Destroy the Bullet which collided with the Asteroid
+        }
+        else
+        { // if we collided with something else, print to console
+          // what the other thing was
+            Debug.Log("Collided with " + collider.tag);
+        }
 
         Die();
         

@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: 86fce5b9c4b88d34da980997656d0035
-timeCreated: 1517112399
+timeCreated: 1524859009
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bullet: {fileID: 1741004020497304, guid: df309048b9700694d869d004999532cd, type: 2}
+  - deathExplosion: {fileID: 1692421174320418, guid: a2f74bab10131f746b6a0503439bc467,
+      type: 2}
+  - deathKnell: {fileID: 8300000, guid: e3edda40320cae24cac67bbac7459f9c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

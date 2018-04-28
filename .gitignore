@@ -7,4 +7,5 @@ Temp/
 *.csproj
 *.unityproj
 *.sln
+*.vs
 #Unity gitignore end

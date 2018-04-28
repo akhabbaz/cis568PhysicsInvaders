@@ -49,11 +49,6 @@ public class AlienManager : MonoBehaviour {
     {
         return aliens.Count;
     }
-    // Each Alien calls this to determine if it is the firing Alien
-    public bool FiringAlien(int hor, int vert)
-    { 
-    	
-    }
     public void RemoveAlien(Alien deadAlien)
     {
         int index = aliens.BinarySearch(deadAlien);
