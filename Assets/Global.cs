@@ -15,6 +15,8 @@ public class Global : MonoBehaviour {
     public int score;
     private AlienManager currentWave;
     public int LivesLeft;
+    private float pauseTime = 2.0f;
+    private bool waitToCreate;
     // Use this for initialization
     void Start() {
         score = 0;
@@ -22,6 +24,7 @@ public class Global : MonoBehaviour {
         spawnPeriod = 5.0f;
         numberSpawnedEachPeriod = 3;
         LivesLeft = 3;
+        waitToCreate = false;
         currentWave = Instantiate(alienManager, new Vector3(0, 0, 0), Quaternion.identity);
         Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
         LivesLeft--;
@@ -30,9 +33,15 @@ public class Global : MonoBehaviour {
     {
         if (LivesLeft > 0)
         {
+            waitToCreate = true;
+            timer = 0.0f;
+        }
+    }
+    private void CreateNewPlayer()
+    {
             Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
             LivesLeft--;
-        }
+            waitToCreate = false;
     }
     public void AlienDead()
     {
@@ -60,8 +69,14 @@ public class Global : MonoBehaviour {
             {
                 PlayerPrefs.SetInt("HighScore", score);
             }
+            StaticClassState.gameState = StaticClassState.GameState.GameOver;
+            StaticClassState.CurrentScore = score;
             SceneManager.LoadScene("GameOver");
 
+        }
+        else if (waitToCreate && timer > pauseTime)
+        {
+            CreateNewPlayer();
         }
         
 		

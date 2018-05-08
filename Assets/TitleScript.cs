@@ -21,11 +21,13 @@ public class TitleScript : MonoBehaviour {
         // The scene needs to be added into build setting to be loaded!
         if (GUILayout.Button("New Game", GUILayout.Height(20)))
         {
+            StaticClassState.gameState = StaticClassState.GameState.GamePlay;
             SceneManager.LoadScene("Gameplay");
         }
         if (GUILayout.Button("High score"))
         {
-            Debug.Log("You should implement a high score screen.");
+            StaticClassState.gameState = StaticClassState.GameState.HighScore;
+            SceneManager.LoadScene("GameOver");
         }
         if (GUILayout.Button("Exit"))
         {
