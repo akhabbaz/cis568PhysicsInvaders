@@ -289,9 +289,25 @@ InterObject Communication
   
 
 
-  
-		
+Features Implemented
+--------------------
 
+The game has an alien manager that handles all the aliens.  the left or right most
+alien is the one that controls when the alien wave shifts right or left.  The bottom
+row is the only row that fires bullets.   There are waves of aliens and the first
+level is meant to be simple.  As the levels progress, the frequency of bullets
+increases and the number of aliens per level increases (from 4 to 20 per level).  
+
+Bullets are launched ever few seconds and the player has inertia. To avoid bullets
+one has to turn early.  Controls are with the right and left arrows.  The trigger is
+left click.  THe artwork is done in Maya.
+
+
+There is a start screen, a Game Over screen, and a high score screen, and and exit
+game.  The application runs.  The high score is stored.
+
+There are no warnings or bugs when the game runs.  Enclosed is a movie with the game
+play that you can watch.
 
 
 
