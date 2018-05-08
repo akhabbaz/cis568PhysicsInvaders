@@ -8,12 +8,15 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
     public GameObject deathExplosion;
     private AlienManager alienManager;
     public AudioClip deathKnell;
+    public Bullet bullet;
     private int hor;
     private int vert;
-    public void Start()
+    double triggerTime;
+    public bool load;
+    void Start()
     {
-        hor = 0;
-        vert = 0;
+        load = false;
+        triggerTime = Time.time + 1000;
     }
     // relative location of this alien
     public void Location(int h, int v) {
@@ -41,6 +44,26 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
 
         // Die();
     }
+    public int Horizontal() 
+    {
+    	return hor;
+    }
+    public int Vertical()
+    {
+        return vert;
+    }
+    private Bullet LaunchBullet(Vector3 spawnPos)
+    {
+        // instantiate the Bullet
+        Bullet b = Instantiate(bullet, spawnPos, Quaternion.identity);// as GameObject;
+                                                                      // Bullet bp = b.GetComponent<Bullet>();
+        Quaternion rot = Quaternion.Euler(new Vector3(0, 90, 0));
+
+        b.heading = rot;
+        Vector3 thrust = new Vector3(0, -120, 0);
+        b.AddForce(thrust);
+        return b;
+    }
     public void Die()
     {
         // Destroy removes the gameObject from the scene and
@@ -55,6 +78,10 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
             Debug.Log("Alien not removed from list");
         }
         Destroy(gameObject);
+    }
+    public void LoadFire() {
+        load = true;
+        triggerTime = Time.time + UnityEngine.Random.value * alienManager.fireRate;
     }
     public int CompareTo(Alien other)
     {
@@ -79,7 +106,18 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
 	    return 0;
     }
     // Update is called once per frame
-    void Update () {
-		
+    public void Fire() {
+        if (load && triggerTime < Time.time)
+        {
+            load = false;
+            Vector3 spawnPos = gameObject.transform.position;
+            spawnPos.y -= 0.75f;
+            LaunchBullet(spawnPos);
+        }
 	}
+    void Update()
+    {
+        Fire();
+
+    }
 }

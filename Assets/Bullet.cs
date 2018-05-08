@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-	public Vector3 thrust;
 	public Quaternion heading;
 	// store the camera so that one can 
 	// kill bullets off of the screen.
         // Use this for initialization
         void Start()
         {
-            // travel straight in the X-axis
-            thrust.y =120.0f;
             // do not passively decelerate
             GetComponent<Rigidbody>().drag = 0;
-            // set the direction it will travel in
+        // set the direction it will travel in
+        // Use this for initialization
+        // apply thrust once, no need to apply it again since
+        // it will not decelerate
+        heading = Quaternion.Euler(new Vector3(0, 90, 0)); 
             GetComponent<Rigidbody>().MoveRotation(heading);
-            // Use this for initialization
-            // apply thrust once, no need to apply it again since
-            // it will not decelerate
-            GetComponent<Rigidbody>().AddRelativeForce(thrust);
+        transform.Rotate(new Vector3(0, 0, 90));
          }
     // Update is called once per frame
-    
+    public void AddForce(Vector3 thrust)
+    {
+        GetComponent<Rigidbody>().AddRelativeForce(thrust);
+    }
     void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;

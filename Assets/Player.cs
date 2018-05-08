@@ -10,12 +10,15 @@ public class Player : MonoBehaviour {
     float minTimeDiff;
     public GameObject deathExplosion;
     public AudioClip deathKnell;
+    private Global gameController;
     // Use this for initialization
     void Start() {
         forceVector.x = 1.0f;
         timeLastShot = 0.0f;
         minTimeDiff = 0.5f;
         print(" This is a test");
+        GameObject g = GameObject.Find("GlobalObject");
+        gameController = g.GetComponent<Global>();
     }
     void Update()
     {// the Collision contains a lot of info, but it’s the colliding
@@ -31,12 +34,11 @@ public class Player : MonoBehaviour {
                 timeLastShot = currentTime;
                 Vector3 spawnPos = gameObject.transform.position;
                 spawnPos.y += 0.75f;
-                Bullet b = LaunchBullet(spawnPos);
+                 LaunchBullet(spawnPos);
                 // get the Bullet Script Component of the new Bullet instance
                 //Bullet b = obj.GetComponent<Bullet>();
                 // set the direction the Bullet will travel in
-                Quaternion rot = Quaternion.Euler(new Vector3(0, 0, 0));
-                b.heading = rot;
+               
             }
         }
     }
@@ -45,7 +47,9 @@ public class Player : MonoBehaviour {
     {
         // instantiate the Bullet
         Bullet b = Instantiate(bullet, spawnPos, Quaternion.identity);// as GameObject;
-                                                                      // Bullet bp = b.GetComponent<Bullet>();
+        Quaternion rot = Quaternion.Euler(new Vector3(0, 180, 0));
+        b.heading = rot;// Bullet bp = b.GetComponent<Bullet>();
+        b.AddForce(new Vector3(0, 240.0f, 0));
         return b;
     }
 
@@ -78,6 +82,7 @@ public class Player : MonoBehaviour {
         Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(-90, Vector3.right));
         // marks it for garbage collection
         Destroy(gameObject);
+        gameController.PlayerDead();
     }
 }
 
