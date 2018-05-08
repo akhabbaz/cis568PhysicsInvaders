@@ -23,7 +23,7 @@ public class Global : MonoBehaviour {
         timer = 0;
         spawnPeriod = 5.0f;
         numberSpawnedEachPeriod = 3;
-        LivesLeft = 3;
+        LivesLeft = 5;
         waitToCreate = false;
         currentWave = Instantiate(alienManager, new Vector3(0, 0, 0), Quaternion.identity);
         Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
@@ -33,6 +33,7 @@ public class Global : MonoBehaviour {
     {
         if (LivesLeft > 0)
         {
+            LivesLeft--;
             waitToCreate = true;
             timer = 0.0f;
         }
@@ -40,7 +41,6 @@ public class Global : MonoBehaviour {
     private void CreateNewPlayer()
     {
             Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
-            LivesLeft--;
             waitToCreate = false;
     }
     public void AlienDead()

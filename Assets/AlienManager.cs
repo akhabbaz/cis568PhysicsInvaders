@@ -10,7 +10,7 @@ public class AlienManager : MonoBehaviour {
     float yStart = 2.0f;
     float ystep = 2.5f;
     float numbery = 2.0f;
-    float stepPerUpdate = 0.10f;
+    float stepPerUpdate = 0.05f;
     float minX = 0.0f;
     float maxX = 0.0f;
     // rate at which aliens fire on average
