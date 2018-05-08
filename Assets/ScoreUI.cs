@@ -12,11 +12,11 @@ public class ScoreUI : MonoBehaviour {
     {
         GameObject g = GameObject.Find("GlobalObject");
         globalObj = g.GetComponent<Global>();
-        scoreText = gameObject.GetComponent<Text>();
+        //scoreText = gameObject.GetComponent<Text>();
     }
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = globalObj.score.ToString();
+        scoreText.text ="Score: " + globalObj.score.ToString();
     }
 }

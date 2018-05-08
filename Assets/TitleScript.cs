@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleScript : MonoBehaviour {
     private GUIStyle buttonStyle;
@@ -18,9 +19,9 @@ public class TitleScript : MonoBehaviour {
         GUILayout.BeginArea(new Rect(10, Screen.height / 2 + 100, Screen.width - 10, 200));
         // Load the main scene
         // The scene needs to be added into build setting to be loaded!
-        if (GUILayout.Button("New Game"))
+        if (GUILayout.Button("New Game", GUILayout.Height(20)))
         {
-            Application.LoadLevel("GameplayScene");
+            SceneManager.LoadScene("Gameplay");
         }
         if (GUILayout.Button("High score"))
         {
