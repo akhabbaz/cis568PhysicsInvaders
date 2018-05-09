@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
     private Global gameController;
     // Use this for initialization
     void Start() {
-        forceVector.x = 1.0f;
+        forceVector.x = 10.0f;
         timeLastShot = 0.0f;
         minTimeDiff = 0.5f;
         print(" This is a test");
@@ -71,7 +71,12 @@ public class Player : MonoBehaviour {
     {
         // the Collision contains a lot of info, but it’s the colliding
         // object we’re most interested in. Collider collider = collision.collider;
-        Die();
+
+        Collider collider = collision.collider;
+        if (collider.CompareTag("Bullet"))
+        {
+            Die();
+        }
     }
     
     public void Die()

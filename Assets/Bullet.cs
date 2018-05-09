@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour {
         {
             Alien hitAlien =
             collider.gameObject.GetComponent<Alien>(); // let the other object handle its own death throes
-            hitAlien.Die(); // Destroy the Bullet which collided with the Asteroid
+            hitAlien.AlienHit(); // Destroy the Bullet which collided with the Asteroid
         }
         else
         { // if we collided with something else, print to console

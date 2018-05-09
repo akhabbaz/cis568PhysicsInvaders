@@ -7,10 +7,11 @@ public class AlienManager : MonoBehaviour {
 	float xStart = -5;
     float xstep = 2.5f;
 	public int numberx = 4;
-    float yStart = 2.0f;
+    float yStart = 4.0f;
     float ystep = 2.5f;
     float numbery = 2.0f;
-    float stepPerUpdate = 0.05f;
+    public float stepPerUpdate = 0.05f;
+    float yStepPerChangeDir = -0.5f; 
     float minX = 0.0f;
     float maxX = 0.0f;
     // rate at which aliens fire on average
@@ -101,21 +102,24 @@ public class AlienManager : MonoBehaviour {
 	// Update is called once per frame:
 	void Update () {
             float pos = aliens[0].transform.position[0];
+            float ystep = 0.0f;
 
             if (pos < minX)
             {
                 stepPerUpdate *= -1;
+                ystep = yStepPerChangeDir;
             }
             int last = aliens.Count - 1;
             pos = aliens[last].transform.position[0];
             if (pos > maxX)
             {
                 stepPerUpdate *= -1;
+                ystep = yStepPerChangeDir;
             }
             foreach (Alien al in aliens)
             {
                 pos = al.transform.position.x;
-                al.transform.Translate(stepPerUpdate, 0, 0);
+                al.transform.Translate(stepPerUpdate, ystep, 0);
             }
             FireAliens();
 

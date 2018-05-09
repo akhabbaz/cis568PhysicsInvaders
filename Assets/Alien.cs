@@ -6,17 +6,25 @@ using System;
 public class Alien : MonoBehaviour, IComparable<Alien> {
     // Use this for initialization
     public GameObject deathExplosion;
+    // get game controller to add points when alien falls
+    private Global gameController;
     private AlienManager alienManager;
     public AudioClip deathKnell;
     public Bullet bullet;
     private int hor;
     private int vert;
     double triggerTime;
+    // fire randomly
     public bool load;
+    // fallen tells if the alien has just fallen down
+    private bool fallen;
     void Start()
     {
         load = false;
         triggerTime = Time.time + 1000;
+        fallen = false;
+        GameObject g = GameObject.Find("GlobalObject");
+        gameController = g.GetComponent<Global>();
     }
     // relative location of this alien
     public void Location(int h, int v) {
@@ -38,12 +46,11 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
         if (collider.CompareTag("Alien"))
         {
             Alien otheralien = collider.gameObject.GetComponent<Alien>();
-            otheralien.Die();
+            otheralien.AlienHit();
         }
-
-
-        // Die();
+        AlienHit();
     }
+
     public int Horizontal() 
     {
     	return hor;
@@ -64,19 +71,27 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
         b.AddForce(thrust);
         return b;
     }
+    public void AlienHit()
+    {
+        if (!fallen)
+        {
+            AudioSource.PlayClipAtPoint(deathKnell, gameObject.transform.position);
+            // marks it for garbage collection
+            //Alien thisA = gameObject.GetComponent<Alien>();
+            Collider collider = GetComponent<Collider>();
+            collider.attachedRigidbody.useGravity = true;
+            int countinit = alienManager.AliensLeft();
+            alienManager.RemoveAlien(this);
+            if (countinit != alienManager.AliensLeft() + 1)
+            {
+                Debug.Log("Alien not removed from list");
+            }
+            fallen = true;
+        }
+    }
     public void Die()
     {
-        // Destroy removes the gameObject from the scene and
-        AudioSource.PlayClipAtPoint(deathKnell, gameObject.transform.position);
-        Instantiate(deathExplosion, gameObject.transform.position, Quaternion.AngleAxis(0, Vector3.forward));
-        // marks it for garbage collection
-        //Alien thisA = gameObject.GetComponent<Alien>();
-        int countinit = alienManager.AliensLeft(); 
-        alienManager.RemoveAlien(this);
-        if (countinit != alienManager.AliensLeft() + 1)
-        {
-            Debug.Log("Alien not removed from list");
-        }
+        gameController.score += 3;
         Destroy(gameObject);
     }
     public void LoadFire() {
@@ -118,6 +133,9 @@ public class Alien : MonoBehaviour, IComparable<Alien> {
     void Update()
     {
         Fire();
-
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+	    if (screenPos.y > Screen.height || screenPos.y < 0) {
+		    Die();
+	    }
     }
 }

@@ -17,6 +17,8 @@ public class Global : MonoBehaviour {
     public int LivesLeft;
     private float pauseTime = 2.0f;
     private bool waitToCreate;
+    private bool playerDead;
+    private bool waveOver;
     // Use this for initialization
     void Start() {
         score = 0;
@@ -27,6 +29,8 @@ public class Global : MonoBehaviour {
         waitToCreate = false;
         currentWave = Instantiate(alienManager, new Vector3(0, 0, 0), Quaternion.identity);
         Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
+        playerDead = false;
+        waveOver = false;
         LivesLeft--;
     }
     public void PlayerDead()
@@ -36,12 +40,14 @@ public class Global : MonoBehaviour {
             LivesLeft--;
             waitToCreate = true;
             timer = 0.0f;
+            playerDead = true;
         }
     }
     private void CreateNewPlayer()
     {
             Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
             waitToCreate = false;
+            playerDead = false;
     }
     public void AlienDead()
     {
@@ -50,14 +56,23 @@ public class Global : MonoBehaviour {
     public void CurrentWaveOver()
     {
         score += 10;
+        Debug.Log(score);
+        waitToCreate = true;
+        timer = 0.0f;
+        waveOver = true;
+
+    }
+	public void CreateAlienWave()
+    {
         float nextRate = currentWave.fireRate * 0.8f;
         int nextx = Math.Min(10, currentWave.numberx + 2);
         currentWave = Instantiate(alienManager, new Vector3(0, 0, 0), Quaternion.identity);
         currentWave.fireRate = nextRate;
         currentWave.numberx = nextx;
-        Debug.Log(score);
+        currentWave.stepPerUpdate *= 0.1f;
+        waitToCreate = false;
+        waveOver = false;
     }
-	
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
@@ -76,7 +91,14 @@ public class Global : MonoBehaviour {
         }
         else if (waitToCreate && timer > pauseTime)
         {
-            CreateNewPlayer();
+            if (playerDead)
+            {
+                CreateNewPlayer();
+            }
+            else if (waveOver)
+            {
+                CreateAlienWave();
+            }
         }
         
 		
