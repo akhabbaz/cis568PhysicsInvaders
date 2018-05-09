@@ -1,13 +1,63 @@
 # cis568Invaders
 
-Space Invaders
+Physics Invaders
 ================
+
+This is a modification of space invaders and has new features and scoring.
+
+main Features
+-------------
+1.  Aliens now when hit fall to the ground plane (red floor) and stay there.  The
+Aliens now can collide with each other but that will lead to a fallen alien, not a
+completely eliminated one. Aliens can collide with each other or the player but that
+will not lead to the end of the alien.  
+2. Bullets still eliminate the player.
+
+3.  The player ship is much more dynamic.  It is lighter and has more force so the
+controls allow for a quick response from the player. The ship moves back and forth
+quickly.
+
+4.  In addition to knocking down the aliens with bullets (or if a fallen alien
+crashes into another)  the aliens will accumulate on the ground plane.  One then has
+to sweep off the aliens so that one's motion is unimpeded and so one can respond
+better to the oncoming attacks.  
+
+5.  The aliens now descend in addition to scanning back and forth.  Another way to
+kill an alien is to physically hit a low one.  That will cause the alien to fall from
+the alien manager and then land on the floor.
+
+6.  Each new wave also has the Aliens moving faster horizontally.  They start further
+back from the player. 
+
+7. The player's bullets still only fire each 0.5 seconds.  They do not fire any
+quicker, so the player has to fire with care.  
+
+These features add more resources and challenges and make the game more interesting.
+
+Scoring
+-------
+
+Points are awarded for every alien that has been knocked off of the floor. Aliens
+that fall from the sky get 5 points but they accumulate on the floor.  Once the alien
+is swept off of the floor, that is worth another 3 points.
+
+
+Implementation Details
+----------------------
+When an alien or a bullet gets out of the screen space it is removed from the game
+play.  For aliens, that triggers extra points.  This keeps the number of objects in
+the scene finite, no matter how you play.
+
+The game plays with no bugs.  The log is devoid of warnings or serious errors.
+
+
+
 
 This project is to recreate a space Invaders game in Unity as originally concieved in the Atari Space Invaders game as created in the 1980s.
 
 Game Design
 ------------
-The objective of Space invaders is to destroy an army of space invaders as they approach The invaders move in a grid where the bottom most fighter fires. They move in a snake pattern and at the end of a row, the aliens advance.  The idea is to shoot all the invaders before any of them kill the player. The objective is to eliminate all aliens, and thereby accumulate points. The aliens further from the ground are worth more points. There are special ships that move faster and are higher that are worth more points.   A loss is when there are remaining aliens.   
+The objective of Physics invaders is to destroy an army of space invaders as they approach The invaders move in a grid where the bottom most fighter fires. They move in a snake pattern and at the end of a row, the aliens advance.  The idea is to shoot all the invaders before any of them kill the player. The objective is to eliminate all aliens, and thereby accumulate points. The aliens further from the ground are worth more points. There are special ships that move faster and are higher that are worth more points.   A loss is when there are remaining aliens.   
 
 The challenges and conflicts  are related to the game play. One needs to shoot all the aliens before the aliens shoot you back. That involves shooting but at the same time avoiding alien bullets.  As the aliens get closer, the task gets more challenging.  Another conflict is that there is a fixed lag between shots.  One cannot shoot continuously.  One has to aim and anticipate when the bullet actually will strike. 
 

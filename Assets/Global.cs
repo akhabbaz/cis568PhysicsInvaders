@@ -69,7 +69,7 @@ public class Global : MonoBehaviour {
         currentWave = Instantiate(alienManager, new Vector3(0, 0, 0), Quaternion.identity);
         currentWave.fireRate = nextRate;
         currentWave.numberx = nextx;
-        currentWave.stepPerUpdate *= 0.1f;
+        currentWave.stepPerUpdate *= 1.1f;
         waitToCreate = false;
         waveOver = false;
     }
